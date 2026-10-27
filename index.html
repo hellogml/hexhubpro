@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hex to Binary/Octal/Decimal Converter – Base Conversion</title>
+<meta name="description" content="Real-time base conversion between hexadecimal, binary, octal and decimal. Toggle case, validate input and copy results for coding and networking.">
+<link rel="canonical" href="https://hexhubpro.com/">
+<meta property="og:title" content="Hex to Binary/Octal/Decimal Converter – Base Conversion">
+<meta property="og:description" content="Real-time hex, binary, octal and decimal conversion with input validation, case toggle and one-click copy.">
+<meta property="og:url" content="https://hexhubpro.com">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="hexhubpro">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="images/logo.svg">
+<link rel="stylesheet" href="css/style.css?v=b838ae63">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "hexhubpro Base Converter",
+  "url": "https://hexhubpro.com",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free hexadecimal, binary, octal and decimal converter with real-time dual-direction conversion, input validation, uppercase/lowercase toggle and one-click copy."
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I convert hex to binary, octal or decimal?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Type a value into any field and the other bases update in real time as you type."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it validate the input?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Characters that are not valid for the selected base are flagged immediately so you can correct the value before using it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I switch between uppercase and lowercase hex?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. A toggle switches the hexadecimal output between UPPERCASE and lowercase without changing its value."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the base converter free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is free, needs no sign-up, and all conversion happens locally in your browser."
+      }
+    }
+  ]
+}
+</script>
+  <!-- cms:ga4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LK6L04MG2K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LK6L04MG2K', { anonymize_ip: true });
+</script><!-- /cms:ga4 -->
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="brand" href="/">
+      <img src="images/logo.svg" alt="hexhubpro logo" class="logo" width="38" height="38">
+      <span class="brand-name">hex<em>hub</em>pro</span>
+    </a>
+<nav class="hh-nv" aria-label="Main menu">
+      <ul class="hh-nvlinks"><li><a href="/">Base Converter</a></li><li><a href="/articles">Guides</a></li><li><a href="/about-us">About</a></li></ul>
+      <button class="hh-bars" id="hh-bars" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <div class="hh-sheet" id="hh-sheet" hidden>
+        <a href="/">Base Converter</a>
+        <a href="/articles">Guides</a>
+        <a href="/about-us">About</a>
+      </div>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">&#9681;</button>
+  </div>
+</header>
+
+<section class="tool-hero">
+  <div class="wrap">
+    <p class="eyebrow">Hex &amp; Base Converter</p>
+    <h1>Type it once. See it in every base.</h1>
+    <p class="lede">Hexadecimal, binary, octal and decimal — a single value converted live in every base, with strict validation and the format your codebase actually wants.</p>
+  </div>
+
+  <div class="wrap calc-grid">
+    <div class="panel input">
+      <div class="aspair">
+        <div>
+          <label class="field-label" for="src-base">Source base</label>
+          <select id="src-base" class="sel">
+            <option value="2">Binary (2)</option>
+            <option value="8">Octal (8)</option>
+            <option value="16" selected>Hex (16)</option>
+            <option value="10">Decimal (10)</option>
+          </select>
+        </div>
+        <div class="dir-tag" id="src-tag" aria-hidden="true">HEX</div>
+      </div>
+
+      <label class="field-label" for="val-input">Value</label>
+      <input id="val-input" class="mono-input" type="text" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="e.g. FF, 1A3B, 0x2F9" inputmode="text">
+      <button class="swap-btn" id="swap-btn" type="button" aria-label="Swap source and target base">&#8646; <span>Swap source / target</span></button>
+
+      <div class="aspair">
+        <div>
+          <label class="field-label" for="tgt-base">Target base</label>
+          <select id="tgt-base" class="sel">
+            <option value="2">Binary (2)</option>
+            <option value="8">Octal (8)</option>
+            <option value="16">Hex (16)</option>
+            <option value="10">Decimal (10)</option>
+          </select>
+        </div>
+        <div class="dir-tag" id="tgt-tag" aria-hidden="true">BIN</div>
+      </div>
+
+      <label class="field-label" for="val-result">Result</label>
+      <div class="result-row">
+        <input id="val-result" class="mono-input" type="text" readonly spellcheck="false" placeholder="Result appears here">
+        <button class="copy-btn" id="copy-result" type="button" title="Copy result">&#x2398;</button>
+      </div>
+
+      <div class="hint" id="err-hint">Real-time conversion. Invalid characters are blocked as you type.</div>
+
+      <div class="row-actions">
+        <button class="btn ghost" id="clear-btn" type="button">Clear</button>
+      </div>
+    </div>
+
+    <div class="panel results" aria-live="polite">
+      <div class="results-title"><h2>All bases</h2><span id="badge">live</span></div>
+      <div class="allbases">
+        <div class="ab" data-b="2"><span>Binary</span><b id="o-bin">—</b><button class="mini-copy" data-copy="o-bin" type="button">&#x2398;</button></div>
+        <div class="ab" data-b="8"><span>Octal</span><b id="o-oct">—</b><button class="mini-copy" data-copy="o-oct" type="button">&#x2398;</button></div>
+        <div class="ab" data-b="10"><span>Decimal</span><b id="o-dec">—</b><button class="mini-copy" data-copy="o-dec" type="button">&#x2398;</button></div>
+        <div class="ab" data-b="16"><span>Hex</span><b id="o-hex">—</b><button class="mini-copy" data-copy="o-hex" type="button">&#x2398;</button></div>
+      </div>
+
+      <div class="case-row">
+        <span class="case-label">Hex case</span>
+        <button class="btn ghost small" id="case-btn" type="button">UPPERCASE</button>
+      </div>
+
+      <div class="swap-info">
+        <span class="si-note"><b id="digits">0</b> digit(s) &middot; <b id="width">0</b>&thinsp;bit(s) &middot; signed <b id="signed">0</b></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="page">
+  <div class="wrap steps-wrap">
+    <h2>How the conversion works</h2>
+    <p class="page-lede" id="steps-empty">Enter a value above and this panel shows the exact intermediate step between source and target base.</p>
+    <div id="steps" class="steps" aria-live="polite"></div>
+  </div>
+</main>
+
+<!-- FAQ -->
+  
+    <!-- cms:guide-block 用途解释+使用步骤 -->
+    <section class="guide-block" aria-label="About Hex to Binary/Octal/Decimal Converter and how to use it">
+      <div class="wrap">
+      <h2>Real-world base conversions without a calculator</h2>
+<p>Hexhubpro handles the everyday moments when you need to move between hexadecimal, binary, octal, and decimal without reaching for a programming manual. Firmware developers checking memory addresses, network engineers reading packet dumps, and students verifying coursework all land here for the same reason: fast, accurate base conversion with no manual arithmetic. Paste a hex value like 0x4F2A, and you immediately see its binary, octal, and decimal equivalents side by side. No sign-up, no clutter, just the four number systems translated in a single step.</p>
+      </div>
+    </section>
+<section class="faq-block">
+    <h2>Frequently Asked Questions</h2>
+      <details>
+        <summary>How do I convert hex to binary, octal or decimal?</summary>
+        <p>Type a value into any field and the other bases update in real time as you type.</p>
+      </details>
+      <details>
+        <summary>Does it validate the input?</summary>
+        <p>Yes. Characters that are not valid for the selected base are flagged immediately so you can correct the value before using it.</p>
+      </details>
+      <details>
+        <summary>Can I switch between uppercase and lowercase hex?</summary>
+        <p>Yes. A toggle switches the hexadecimal output between UPPERCASE and lowercase without changing its value.</p>
+      </details>
+      <details>
+        <summary>Is the base converter free?</summary>
+        <p>It is free, needs no sign-up, and all conversion happens locally in your browser.</p>
+      </details>
+  </section>
+
+<!-- ARTICLES-LIST-START -->
+    <section class="content-section">
+      <div class="inner">
+        <h2>Latest Articles</h2>
+        <div class="article-list">
+          <a href="parsing-padded-vs-unpadded-binary-strings-how-std-bitset-size-declarations-silently-drop-leading-zeros">
+            <div class="article-title">Parsing Padded vs Unpadded Binary Strings: How std::bitset Size Declarations Silently Drop Leading Zeros</div>
+            <div class="article-desc">Last month, I audited 1,247 C++ binary protocol parsers across three telecom gateway projects.</div>
+          </a>
+          <a href="floating-point-to-hex-algorithms-building-an-accurate-ieee-754-single-precision-web-converter">
+            <div class="article-title">Floating-Point to Hex Algorithms: Building an Accurate IEEE 754 Single-Precision Web Converter</div>
+            <div class="article-desc">Picture this: you're three hours into debugging a firmware issue. A temperature sensor downstream from your microcontroller keeps reporting garbage values — 4.2°C one second, -8192°C the next.</div>
+          </a>
+          <a href="command-line-hex-to-octal-conversion-handling-large-64-bit-string-outputs-without-truncation">
+            <div class="article-title">Command-Line Hex to Octal Conversion: Handling Large 64-Bit String Outputs Without Truncation</div>
+            <div class="article-desc">It’s 2:00 AM. You’re staring at a dual-monitor setup, trying to reconcile a legacy firmware register dump with a newly compiled device tree blob.</div>
+          </a>
+          <a href="demystifying-ieee-754-denormalized-hex-values-why-standard-calculators-fail-to-convert-them-accurately">
+            <div class="article-title">Demystifying IEEE 754 Denormalized Hex Values: Why Standard Calculators Fail to Convert Them Accurately</div>
+            <div class="article-desc">Picture this: you're debugging an embedded sensor pipeline, and your logic analyzer just spat out a stream of 32-bit hex values. One of them — 0x00000001 — catches your eye.</div>
+          </a>
+          <a href="handling-128-bit-ipv6-address-precision-in-online-binary-conversion-tools-without-truncation">
+            <div class="article-title">Handling 128-Bit IPv6 Address Precision in Online Binary Conversion Tools Without Truncation</div>
+            <div class="article-desc">The 2^53 Wall: Why 99% of Online Binary Converters Silently Corrupt Your IPv6 Addresses Here's a number that should keep you up at night: 9,007,199,254,740,991.</div>
+          </a>
+          <a href="parsing-delimiter-variations-how-modern-mac-address-converters-handle-dashes-colons-and-dots">
+            <div class="article-title">Parsing Delimiter Variations: How Modern MAC Address Converters Handle Dashes, Colons, and Dots</div>
+            <div class="article-desc">You're Probably Pasting MAC Addresses Straight Into Your Script and Hoping for the Best Let me guess: you grabbed a MAC address from a switch ARP table, something like 00:1A:2B:3C:4D:5E , tossed it…</div>
+          </a>
+          <a href="case-insensitivity-in-ipv6-how-uppercase-and-lowercase-hex-letters-impact-binary-conversion">
+            <div class="article-title">Case Insensitivity in IPv6: How Uppercase and Lowercase Hex Letters Impact Binary Conversion</div>
+            <div class="article-desc">So you're staring at a log file full of IPv6 addresses—some with uppercase hex letters, some with lowercase, some with a chaotic mix of both—and you need to convert them all to binary for a comparison routine.</div>
+          </a>
+          <a href="converting-ieee-754-special-hex-values-0x7f800000-and-0x00000000-to-decimal-infinity-and-zero">
+            <div class="article-title">Converting IEEE 754 Special Hex Values 0x7F800000 and 0x00000000 to Decimal Infinity and Zero</div>
+            <div class="article-desc">You're three weeks into a firmware project. Your sensor array streams binary frames over UART, and somewhere in the parser you hit a hex value of 0x7F800000.</div>
+          </a>
+          <a href="why-real-time-hex-to-binary-conversion-eliminates-transposition-errors-in-network-engineering">
+            <div class="article-title">Why Real-Time Hex to Binary Conversion Eliminates Transposition Errors in Network Engineering</div>
+            <div class="article-desc">Last quarter, a mid-tier ISP in the Pacific Northwest lost $340,000 in SLA penalties because someone typed 0x8F instead of 0xF8 into a BGP community filter. One transposed nibble.</div>
+          </a>
+          <a href="determining-the-48-bit-binary-length-of-mac-addresses-for-packet-header-analysis">
+            <div class="article-title">Determining the 48-Bit Binary Length of MAC Addresses for Packet Header Analysis</div>
+            <div class="article-desc">Last Tuesday, a junior engineer on my team — let's call him Dave — stared at a Wireshark capture, shrugged, and said: &quot;The MAC is 00:1A:2B:3C:4D:5E . What else is there to know?&quot;</div>
+          </a>
+          <a href="calculating-the-exact-bit-length-of-a-full-uncompressed-ipv6-address-for-data-representation">
+            <div class="article-title">Calculating the Exact Bit Length of a Full Uncompressed IPv6 Address for Data Representation</div>
+            <div class="article-desc">When I first told a junior dev that IPv6 could assign 340,282,366,920,938,463,463,374,607,431,768,211,456 unique addresses, he blinked twice and said, &quot;So... we're not running out anytime soon?&quot;</div>
+          </a>
+          <a href="decoding-8-bit-two-s-complement-binary-to-decimal-avoiding-the-sign-bit-trap">
+            <div class="article-title">Decoding 8-Bit Two's Complement Binary to Decimal: Avoiding the Sign Bit Trap</div>
+            <div class="article-desc">Picture this: it's 3 AM, you're debugging an I2C temperature sensor on a custom PCB, and the datasheet swears the raw register output is in &quot;8-bit two's complement.&quot;</div>
+          </a>
+          <a href="how-to-convert-ipv6-hexadecimal-addresses-to-binary-strings-with-input-validation-and-quick-copy-for-network-engineers">
+            <div class="article-title">How to Convert IPv6 Hexadecimal Addresses to Binary Strings with Input Validation and Quick Copy for Network Engineers</div>
+            <div class="article-desc">Here's the scene: you're staring at a packet capture, you need the binary representation of an IPv6 address for a subnet boundary check, and your instinct is to treat the whole thing…</div>
+          </a>
+          <a href="how-to-validate-invalid-octal-digits-during-real-time-base-conversion-for-network-engineering-tools">
+            <div class="article-title">Base Conversion: Regex vs Lookup Catching Invalid Octal '8'</div>
+            <div class="article-desc">Real-time base conversion demands strict validation. We test regex vs lookup catching invalid octal '8' in network tools. Review the data and pick your method.</div>
+          </a>
+          <a href="how-to-validate-and-convert-ipv6-hexadecimal-blocks-to-binary-for-network-engineering-subnetting">
+            <div class="article-title">IPv6 Hexadecimal Binary: Subnetting Mistakes I Fixed</div>
+            <div class="article-desc">Converting IPv6 hexadecimal blocks to binary is tricky. See my real subnetting mistakes, learn exactly how I fixed them, and master base conversion today!</div>
+          </a>
+          <a href="how-to-validate-ipv6-subnet-masks-using-a-real-time-hex-to-binary-converter-for-network-engineering">
+            <div class="article-title">Hex to Binary Converter: Fix FFFF IPv6 Masks 2026</div>
+            <div class="article-desc">Stop guessing IPv6 subnet masks! See why FFFF:FFFF fails and how a real-time hex to binary converter fixes common network engineering pitfalls. Read the guide!</div>
+          </a>
+          <a href="how-to-convert-signed-negative-decimal-numbers-to-hexadecimal-two-s-complement-using-an-online-calculator">
+            <div class="article-title">How to convert signed negative decimal numbers to hexadecimal two's complement using an online calculator</div>
+            <div class="article-desc">This is the question that wakes firmware engineers at 3 AM. You wrote a clean line of C code assigning -42 to a 32-bit register, and now your debugger is showing something that looks like a hex error code.</div>
+          </a>
+          <a href="how-to-convert-hex-mac-addresses-to-binary-for-subnetting-using-a-real-time-converter">
+            <div class="article-title">How to Convert Hex MAC Addresses to Binary for Subnetting Using a Real-time Converter</div>
+            <div class="article-desc">Let's address the elephant in the network closet: most engineers still manually translate hex MAC addresses to binary using a scratchpad, a calculator app, and a prayer.</div>
+          </a>
+          <a href="how-to-validate-and-convert-hexadecimal-subnet-masks-to-binary-without-dropping-leading-zeros">
+            <div class="article-title">Hexadecimal Subnet Masks: 2026 Binary Zero-Drop Test</div>
+            <div class="article-desc">Testing hexadecimal subnet masks to binary? We convert FF.FF.FF.00, proving it yields exactly 32 bits without dropping leading zeros. Review the 2026 data now!</div>
+          </a>
+          <a href="what-is-the-fastest-way-to-convert-large-hexadecimal-strings-to-octal">
+            <div class="article-title">4 Steps Convert Large Hexadecimal Octal Fast</div>
+            <div class="article-desc">Stop crashing scripts when you convert large hexadecimal strings to octal. Discover the fastest, memory-safe base conversion methods. Apply these steps now!</div>
+          </a>
+          <a href="converting-decimal-to-octal-for-legacy-microcontroller-register-configurations">
+            <div class="article-title">Why Most Decimal-Octal Legacy Microcontroller Setups Fail</div>
+            <div class="article-desc">Compare division versus bitwise methods converting decimal to octal. Expose common legacy microcontroller register errors, fix them, and optimize. Read now!</div>
+          </a>
+          <a href="copying-converted-binary-code-directly-into-c-bitset-declarations">
+            <div class="article-title">Base Conversion: Raw Binary Strings vs C++ Bitset Pitfalls</div>
+            <div class="article-desc">std::bitset reads a binary string right-to-left and keeps only the rightmost N characters when the string is too long, without throwing. Here is the padding and round-trip check that stops nine bits landing silently in an eight-bit bitset.</div>
+          </a>
+          <a href="converting-mac-addresses-from-hex-to-binary-format-for-packet-analysis">
+            <div class="article-title">Converting MAC Addresses from Hex to Binary Format for Packet Analysis</div>
+            <div class="article-desc">This is the question that trips up nearly every junior network analyst I've mentored. You open Wireshark, spot a suspicious frame, and suddenly need to understand the MAC address at the bit…</div>
+          </a>
+          <a href="how-to-validate-mixed-alphanumeric-hex-strings-in-an-online-base-converter">
+            <div class="article-title">Validate Hex Strings: 5-Step Base Converter Checklist</div>
+            <div class="article-desc">Need to validate mixed alphanumeric hex strings in an online base converter? Follow this evidence-led, 5-step checklist to ensure accurate results. Read now.</div>
+          </a>
+          <a href="step-by-step-guide-to-converting-ieee-754-floating-point-hex-to-decimal">
+            <div class="article-title">IEEE 754 Hex Decimal: Fix Exponent Traps in 5 Minutes</div>
+            <div class="article-desc">Stop butchering mantissas and flipping sign bits! Our step-by-step guide converts IEEE 754 floating point hex to decimal flawlessly. Master the traps today.</div>
+          </a>
+          <a href="why-does-hex-to-decimal-conversion-overflow-on-large-unsigned-64-bit-integers">
+            <div class="article-title">Stop Hex to Decimal Overflow Breaking 64-bit Integers</div>
+            <div class="article-desc">See why hex to decimal conversion overflows unsigned 64-bit integers. We expose common casting mistakes and fix them step-by-step. Read the guide now.</div>
+          </a>
+          <a href="understanding-two-s-complement-binary-to-decimal-conversion-for-signed-integers">
+            <div class="article-title">Two's Complement: Stop Misreading Negative Binary Values</div>
+            <div class="article-desc">Stop misreading signed integers as huge positive numbers. Master two's complement binary to decimal conversion using our proven, evidence-led method. Read now.</div>
+          </a>
+          <a href="real-time-hex-to-binary-conversion-for-debugging-memory-address-dumps">
+            <div class="article-title">Hex To Binary: Squinting Vs Real-Time Dump Decoding</div>
+            <div class="article-desc">Stop squinting at memory dumps. Use real-time hex to binary conversion to instantly expose bit flags. Debug faster and stop guessing—try the converter now!</div>
+          </a>
+          <a href="how-to-convert-ipv4-dotted-decimal-to-binary-for-subnetting-calculations">
+            <div class="article-title">IPv4 Decimal vs Binary: Resolve Subnet Overlaps</div>
+            <div class="article-desc">Converting IPv4 dotted decimal to binary often causes subnet overlaps. Discover evidence-led fixes for flawed IP block calculations. Apply these rules today.</div>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- ARTICLES-LIST-END -->
+
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <p class="foot-brand">hexhubpro — base conversion for developers</p>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="privacy-policy">Privacy</a>
+        <a href="privacy-policy" data-cookie-settings>Cookie Settings</a></li>
+        <li><a href="terms-of-service">Terms</a></li>
+        <li><a href="disclaimer">Disclaimer</a></li>
+        <li><a href="about-us">About</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="foot-legal">© <span id="yr">2026</span> hexhubpro. Every digit, in its right place.</div>
+</footer>
+
+<script src="js/app.js?v=10"></script>
+<!-- cms:consent -->
+<div class="cookie-banner" role="dialog" aria-modal="false" aria-label="Cookie consent">
+  <div class="cookie-card">
+    <p class="cookie-text">We use strictly necessary cookies to run the site. With your consent, we and third parties such as Google AdSense may also use cookies to analyze traffic and show you relevant ads. You can accept all, decline all, or set your own preferences. See our <a href="/privacy-policy">Privacy Policy</a>.</p>
+    <div class="cookie-actions">
+      <button type="button" class="cookie-btn cookie-btn-decline" data-consent-decline>Decline all</button>
+      <button type="button" class="cookie-btn cookie-btn-accept" data-consent-accept>Accept all</button>
+      <button type="button" class="cookie-btn cookie-btn-settings" data-consent-settings>Cookie settings</button>
+    </div>
+    <div class="cookie-prefs">
+      <div class="cookie-pref-row">
+        <div><strong>Strictly necessary</strong><span>Required for the site to work. Always on.</span></div>
+        <input type="checkbox" checked disabled aria-label="Strictly necessary cookies">
+      </div>
+      <div class="cookie-pref-row">
+        <div><strong>Preferences</strong><span>Remembers your choices, such as theme and recent inputs.</span></div>
+        <input type="checkbox" data-consent-pref-preferences aria-label="Preference cookies">
+      </div>
+      <div class="cookie-pref-row">
+        <div><strong>Advertising</strong><span>Used by us and partners such as Google to deliver relevant ads.</span></div>
+        <input type="checkbox" data-consent-pref-ads aria-label="Advertising cookies">
+      </div>
+      <div class="cookie-actions">
+        <button type="button" class="cookie-btn cookie-btn-accept" data-consent-save>Save my choices</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/consent.js?v=1" defer></script>
+<!-- /cms:consent -->
+</body>
+</html>
